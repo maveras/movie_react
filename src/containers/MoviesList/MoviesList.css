@@ -1,0 +1,10 @@
+.MoviesList {
+  background: #252F37
+}
+
+.MoviesList-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

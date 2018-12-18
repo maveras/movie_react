@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import Movie from '../../components/Movie/Movie'
 import axios from 'axios'
+import classes from './MoviesList.css'
 class MoviesList extends Component {
   state = {
     movies: [],
@@ -19,14 +21,21 @@ class MoviesList extends Component {
       })
   }
   render () {
-    return (
-      <div>
+    const movies = this.state.movies.map(movie => (
+      <Movie
+        title={movie.title}
+        vote_average={movie.vote_average}
+        release_date={movie.release_date}
+        poster_path={movie.poster_path}
+        key={movie.key}
+      />
+    ))
+    return <div className="MoviesList">
         <h1>Popular movies</h1>
-        {
-          this.state.movies.map(movie => <h1>hello</h1>)
-        }
+        <div className="MoviesList-container">
+          {movies}
+        </div>
       </div>
-    )
   }
 }
 
