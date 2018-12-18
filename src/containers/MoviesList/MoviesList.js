@@ -24,7 +24,7 @@ class MoviesList extends Component {
         <h1>Popular movies</h1>
         {
           this.state.movies.map(movie => <h1>hello</h1>)
-      }
+        }
       </div>
     )
   }
