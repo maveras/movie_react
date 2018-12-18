@@ -1,9 +1,30 @@
 import React, {Component} from 'react'
-
+import axios from 'axios'
 class MoviesList extends Component {
+  state = {
+    movies: [],
+    favorites: [],
+    error: false,
+    loading: true
+  }
+  componentDidMount() {
+    axios
+      .get('https://api.themoviedb.org/3/movie/popular?api_key=9124fe005d007e543def06ff8917205d')
+      .then(response => {
+        this.setState({ movies: response.results, loading: false })
+      })
+      .catch(error => {
+        this.setState({ error: true })
+      })
+  }
   render () {
     return (
-      <h1>Movieas list</h1>
+      <div>
+        <h1>Popular movies</h1>
+        {
+          
+        }
+      </div>
     )
   }
 }
