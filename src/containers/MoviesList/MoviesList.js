@@ -11,7 +11,8 @@ class MoviesList extends Component {
     axios
       .get('https://api.themoviedb.org/3/movie/popular?api_key=9124fe005d007e543def06ff8917205d')
       .then(response => {
-        this.setState({ movies: response.results, loading: false })
+        console.log(response)
+        this.setState({ movies: response.data.results, loading: false })
       })
       .catch(error => {
         this.setState({ error: true })
@@ -22,8 +23,8 @@ class MoviesList extends Component {
       <div>
         <h1>Popular movies</h1>
         {
-          
-        }
+          this.state.movies.map(movie => <h1>hello</h1>)
+      }
       </div>
     )
   }
