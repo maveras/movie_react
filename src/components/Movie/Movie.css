@@ -19,8 +19,16 @@
 .movie-card__detail {
   color:white;
   margin: 1rem 0
-  
 }
   .movie-card__release-date {
-    color:#6A7075
+    color:#6A7075;
+    margin-bottom: 1rem;
+  }
+  .movie-card__link {
+    background: #438C74;
+    padding:7px;
+    border-radius: 2px;
+    margin: 2rem 0;
+    text-decoration: none;
+    color: white
   }

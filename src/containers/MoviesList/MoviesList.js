@@ -27,7 +27,7 @@ class MoviesList extends Component {
         vote_average={movie.vote_average}
         release_date={movie.release_date}
         poster_path={movie.poster_path}
-        key={movie.key}
+        id={movie.id}
       />
     ))
     return <div className="MoviesList">
