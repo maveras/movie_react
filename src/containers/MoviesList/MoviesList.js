@@ -10,6 +10,9 @@ class MoviesList extends Component {
     loading: true
   }
   componentDidMount() {
+    /**
+     * get all movies from api
+     */
     axios
       .get('https://api.themoviedb.org/3/movie/popular?api_key=9124fe005d007e543def06ff8917205d')
       .then(response => {

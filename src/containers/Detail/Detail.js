@@ -9,6 +9,9 @@ class Detail extends Component {
     errors: false,
     favs:[]
   }
+  /**
+   * handler to manage menu show
+   */
   menuHandler = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
@@ -18,8 +21,8 @@ class Detail extends Component {
       name,
       id
     }
-    // todo; valaidar si existe
-    if (localStorage.getItem('favs') === 'null' ) {
+    // todo; validate if exists
+    if (localStorage.getItem('favs') === null ) {
       let favs = []
       favs.push(mov)
       this.setState({ favs: favs })
@@ -33,6 +36,9 @@ class Detail extends Component {
   }
   componentDidMount() {
     let movieId = this.props.match.params.movieId
+    /**
+     * get a specific movie by param
+     */
     axios
       .get(
         `https://api.themoviedb.org/3/movie/${movieId}?api_key=9124fe005d007e543def06ff8917205d&language=en-US&page=1`
@@ -44,7 +50,10 @@ class Detail extends Component {
       .catch(error => {
         this.setState({ error: true })
       })
-    if (localStorage.favs !== '') {
+    /**
+     * get data from local storage if dont have objects
+     */
+    if (localStorage.getItem('favs') !== null ) {
       let exFavs = JSON.parse(localStorage.getItem('favs'))
       this.setState({ favs: exFavs })
     }
@@ -59,12 +68,15 @@ class Detail extends Component {
       let overview = this.state.movie.overview
       let rating = this.state.movie.vote_average
       let title = this.state.movie.title
-      let favs = this.state.favs.map(fav => <div className="fav">
-          <img className="fav__img" src={`https://image.tmdb.org/t/p/w500/${fav.path}`} alt="" />
-          <div className="fav__detail">
-            <strong>{fav.name}</strong>
-          </div>
-        </div>)
+      let favs = null
+      if (localStorage.getItem('favs') !== null) {
+        favs = this.state.favs.map(fav => <div className="fav">
+            <img className="fav__img" src={`https://image.tmdb.org/t/p/w500/${fav.path}`} alt="" />
+            <div className="fav__detail">
+              <strong>{fav.name}</strong>
+            </div>
+          </div>)
+      }
       movie = <div className="movie_container">
           <div className={`menu ${showMenu}`}>
             <div className="menu__tag" onClick={this.menuHandler}>
@@ -96,7 +108,7 @@ class Detail extends Component {
               <button
                 onClick={() =>
                   this.addToFav(
-                    this.state.movie.backdrop_path,
+                    this.state.movie.poster_path,
                     title,
                     this.props.match.params.movieId
                   )
