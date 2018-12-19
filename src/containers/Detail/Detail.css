@@ -1,0 +1,29 @@
+.movie_container {
+   background: #252F37
+}
+.img-main {
+  width: 100%
+}
+.main_detail {
+  padding: 1.3rem
+}
+.movie_detail {
+  color:white;
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+}
+.movie__genres {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0rem;
+}
+.movie-gender{
+  padding: .6rem;
+  background:#1E1E20;
+  margin: 0 1rem 0 0
+}
+.movie_eval {
+  margin: 2rem 0;
+  font-size: 2rem;
+}
