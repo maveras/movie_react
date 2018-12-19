@@ -4,7 +4,12 @@ import classes from './Detail.css'
 class Detail extends Component {
   state = {
     movie: null,
-    loading: true
+    loading: true,
+    showMenu: false,
+    errors:false
+  }
+  menuHandler = () => {
+    this.setState({ showMenu: !this.state.showMenu })
   }
   componentDidMount() {
     let movieId = this.props.match.params.movieId
@@ -13,7 +18,6 @@ class Detail extends Component {
       .then(response => {
         console.log(response)
         this.setState({ movie: response.data, loading: false })
-        console.log(this.state)
       })
       .catch(error => {
         this.setState({ error: true })
@@ -21,6 +25,7 @@ class Detail extends Component {
   }
   render() {
     let movie = null
+    let showMenu = this.state.showMenu ? '' : 'menu--show'
     if (this.state.movie) {
       let generes = this.state.movie.genres.map(genre => (
         <div className="movie-gender">{genre.name}</div>
@@ -29,6 +34,14 @@ class Detail extends Component {
       let rating = this.state.movie.vote_average
       let title = this.state.movie.title
       movie = <div className="movie_container">
+          <div className={`menu ${showMenu}`}>
+            <div className="menu__tag">X</div>
+            <div className="menu__favlist">
+              <li> peli 1</li>
+              <li> peli 1</li>
+              <li> peli 1</li>
+            </div>
+          </div>
           <div>
             <img className="img-main " src={`https://image.tmdb.org/t/p/w500/${this.state.movie.backdrop_path}`} />
           </div>
@@ -46,9 +59,10 @@ class Detail extends Component {
               </div>
               <div className="movie_eval">
                 <div className="movie_eval__rating">
-                <span>Rating: {rating}</span>
+                  <span>Rating: {rating}</span>
                 </div>
               </div>
+              <button onClick={this.menuHandler}>Add to favorites</button>
             </div>
           </div>
         </div>

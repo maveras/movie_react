@@ -1,6 +1,27 @@
 .movie_container {
-   background: #252F37
+  background: #252F37;
+  position: relative;
+  overflow: hidden;
 }
+.menu {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  transform: translateX(233px);
+  background: red;
+  display: flex;
+  flex-direction: row;
+}
+.menu--show {
+  transform: translateX(0px);
+}
+.menu__tag {
+  width: 63px;
+  background: blue;
+}
+
 .img-main {
   width: 100%
 }
