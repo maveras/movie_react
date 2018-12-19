@@ -5,16 +5,38 @@ class Detail extends Component {
   state = {
     movie: null,
     loading: true,
-    showMenu: false,
-    errors:false
+    showMenu: true,
+    errors: false,
+    favs:[]
   }
   menuHandler = () => {
     this.setState({ showMenu: !this.state.showMenu })
   }
+  addToFav = (path, name, id) => {
+    let mov = {
+      path,
+      name,
+      id
+    }
+    // todo; valaidar si existe
+    if (localStorage.getItem('favs') === 'null' ) {
+      let favs = []
+      favs.push(mov)
+      this.setState({ favs: favs })
+      localStorage.setItem('favs', JSON.stringify(favs))
+    } else {
+      let exFavs = JSON.parse(localStorage.getItem('favs')) 
+      exFavs.push(mov)
+      this.setState({favs: exFavs})
+      localStorage.setItem('favs', JSON.stringify(exFavs))
+    }
+  }
   componentDidMount() {
     let movieId = this.props.match.params.movieId
     axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=9124fe005d007e543def06ff8917205d&language=en-US&page=1`)
+      .get(
+        `https://api.themoviedb.org/3/movie/${movieId}?api_key=9124fe005d007e543def06ff8917205d&language=en-US&page=1`
+      )
       .then(response => {
         console.log(response)
         this.setState({ movie: response.data, loading: false })
@@ -22,6 +44,10 @@ class Detail extends Component {
       .catch(error => {
         this.setState({ error: true })
       })
+    if (localStorage.favs !== '') {
+      let exFavs = JSON.parse(localStorage.getItem('favs'))
+      this.setState({ favs: exFavs })
+    }
   }
   render() {
     let movie = null
@@ -33,13 +59,18 @@ class Detail extends Component {
       let overview = this.state.movie.overview
       let rating = this.state.movie.vote_average
       let title = this.state.movie.title
+      let favs = this.state.favs.map(fav => <div className="fav">
+          <img className="fav__img" src={`https://image.tmdb.org/t/p/w500/${fav.path}`} alt="" />
+          <div className="fav__detail">
+            <strong>{fav.name}</strong>
+          </div>
+        </div>)
       movie = <div className="movie_container">
           <div className={`menu ${showMenu}`}>
-            <div className="menu__tag">X</div>
+            <div className="menu__tag" onClick={this.menuHandler}>
+            </div>
             <div className="menu__favlist">
-              <li> peli 1</li>
-              <li> peli 1</li>
-              <li> peli 1</li>
+              {favs}
             </div>
           </div>
           <div>
@@ -62,16 +93,22 @@ class Detail extends Component {
                   <span>Rating: {rating}</span>
                 </div>
               </div>
-              <button onClick={this.menuHandler}>Add to favorites</button>
+              <button
+                onClick={() =>
+                  this.addToFav(
+                    this.state.movie.backdrop_path,
+                    title,
+                    this.props.match.params.movieId
+                  )
+                }
+              >
+                Add to favorites
+              </button>
             </div>
           </div>
         </div>
     }
-    return (
-      <div>
-        {movie}
-      </div>
-    )
+    return <div>{movie}</div>
   }
 }
 

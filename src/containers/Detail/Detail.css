@@ -9,19 +9,39 @@
   position: absolute;
   z-index: 100;
   right: 0;
-  transform: translateX(233px);
-  background: red;
+  transform: translateX(269px);
+  background: #384D59;
   display: flex;
   flex-direction: row;
+  transition: all .2s ease;
 }
 .menu--show {
   transform: translateX(0px);
 }
 .menu__tag {
   width: 63px;
-  background: blue;
+  background: #219579;
+  color:white
 }
-
+.menu__favlist {
+  
+}
+.fav__detail {
+  padding: 1rem;
+  color:white
+}
+.fav {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  align-content: center;
+  align-items: center;
+}
+.fav__img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px
+}
 .img-main {
   width: 100%
 }
